@@ -13,7 +13,7 @@ jobs:
       - name: Önceki dosyayı al (72 saatlik birikim için)
         run: mkdir -p out && (curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/metar-data/metar-tr.json" -o out/metar-tr.json || true)
       - name: METAR çek ve birleştir
-        run: python3 scripts/metar.py
+        run: python3 metar.py
       - name: metar-data dalına yayınla (geçmiş birikmez)
         run: |
           cd out
@@ -23,3 +23,4 @@ jobs:
           git add metar-tr.json
           git commit -q -m "metar $(date -u +%FT%TZ)"
           git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" metar-data
+          
